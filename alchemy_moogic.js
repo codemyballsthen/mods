@@ -1,9 +1,9 @@
 // Sandboxels Custom Mod: Magic & Explosions
 // Elements: Aether, Philosopher's Stone, and Mana Crystal
 
-// 1. Define Aether (Glows and has multiple color variants)
+// 1. Define Aether
 elements.aether = {
-    color: ["#8a2be2", "#da70d6", "#ba55d3"], // Color array creates natural pixel variation
+    color: ["#8a2be2", "#da70d6", "#ba55d3"], 
     behavior: behaviors.GAS,
     category: "energy",
     state: "gas",
@@ -40,25 +40,23 @@ elements.potion = {
     viscosity: 10
 };
 
-// 4. NEW: Mana Crystal (Animated Texture + Explosion Reaction)
+// 4. Mana Crystal (Fixed colors & proper physical explosion function)
 elements.mana_crystal = {
-    // Array with percentage (%) signs forces the engine to shift colors like a glittering gemstone
-    color: ["#0000ff", "#1e90ff%", "#00ffff%", "#4169e1"], 
+    color: ["#0000ff", "#1e90ff", "#00ffff", "#4169e1"], 
     behavior: behaviors.SOLID,
     category: "solids",
     state: "solid",
     density: 3000,
     tempHigh: 500,
-    stateHigh: "magma", // Melts to magma if overheated
+    stateHigh: "lava", 
     reactions: {
-        // When touched by Fire or Plasma, it vanishes and triggers a heavy physical explosion
-        "fire": { elem1: "explosion", elem2: "explosion" },
-        "plasma": { elem1: "explosion", elem2: "explosion" },
-        "aether": { elem1: "mana_crystal", elem2: "mana_crystal", chance: 0.1 } // Growing crystal effect
+        "fire": { elem1: "explosion", chance: 1 },
+        "plasma": { elem1: "explosion", chance: 1 },
+        "aether": { elem1: "mana_crystal", elem2: "mana_crystal", chance: 0.1 } 
     }
 };
 
-// 5. Force UI to refresh if injected over console
+// Force UI to refresh if injected over console
 if (typeof initUI === "function") {
     initUI();
 }
