@@ -40,7 +40,7 @@ elements.potion = {
     viscosity: 10
 };
 
-// 4. Mana Crystal (Fixed colors & proper physical explosion function)
+// 4. Mana Crystal (With Animated Sparkle Texture)
 elements.mana_crystal = {
     color: ["#0000ff", "#1e90ff", "#00ffff", "#4169e1"], 
     behavior: behaviors.SOLID,
@@ -53,6 +53,13 @@ elements.mana_crystal = {
         "fire": { elem1: "explosion", chance: 1 },
         "plasma": { elem1: "explosion", chance: 1 },
         "aether": { elem1: "mana_crystal", elem2: "mana_crystal", chance: 0.1 } 
+    },
+    // The tick function runs every frame to change individual pixel colors randomly
+    tick: function(pixel) {
+        if (Math.random() < 0.15) { // 15% chance to change color each frame
+            var colors = ["#0000ff", "#1e90ff", "#00ffff", "#4169e1"];
+            pixel.color = colors[Math.floor(Math.random() * colors.length)];
+        }
     }
 };
 
